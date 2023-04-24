@@ -1,0 +1,6 @@
+spring:
+  datasource:
+    hikari:
+      data-source-properties:
+        socketFactory: com.google.cloud.sql.postgres.SocketFactory
+        cloudSqlInstance: earnest-star-384703:us-central1:cartinhas-db

@@ -1,0 +1,18 @@
+version: "3.8"
+services:
+  cartinhas-postgres:
+    image: postgres
+    environment:
+      POSTGRES_USER: cartinhas
+      POSTGRES_PASSWORD: cartinhas
+      POSTGRES_DB: cartinhas
+    volumes:
+      - cartinhas-postgres-volume:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+  cartinhas-adminer:
+    image: adminer
+    ports:
+      - "9090:8080"
+volumes:
+  cartinhas-postgres-volume:
