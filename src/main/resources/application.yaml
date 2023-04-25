@@ -27,6 +27,7 @@ spring:
 
 springdoc:
   enable-native-support: true
+  
 
 management:
   endpoint:
