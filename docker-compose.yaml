@@ -10,21 +10,9 @@ services:
       - cartinhas-postgres-volume:/var/lib/postgresql/data
     ports:
       - "5432:5432"
-    networks:
-      - cartinhas-network
   cartinhas-adminer:
     image: adminer
     ports:
       - "9090:8080"
-  b:
-    image: us-central1-docker.pkg.dev/earnest-star-384703/native-image-docker-repo/quickstart-image:tag4
-    environment:
-      ENV_JDBC_URL: jdbc:postgresql://cartinhas-postgres:5432/cartinhas
-    networks:
-      - cartinhas-network
-    ports:
-      - "8080:8080"
-networks:
-  cartinhas-network:
 volumes:
   cartinhas-postgres-volume:

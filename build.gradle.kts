@@ -22,12 +22,7 @@ val springCloudVersion = "2022.0.2"
 repositories {
     mavenCentral()
 }
-dependencyManagement {
-    imports {
-        mavenBom("com.google.cloud:spring-cloud-gcp-dependencies:$springCloudGcpVersion")
-        mavenBom("org.springframework.cloud:spring-cloud-dependencies:$springCloudVersion")
-    }
-}
+
 
 dependencies {
     implementation("org.springframework.boot:spring-boot-starter-actuator")
