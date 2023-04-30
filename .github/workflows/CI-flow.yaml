@@ -36,6 +36,8 @@ jobs:
       - name: Name Docker image
         run: docker tag ${{env.IMAGE_PREV_NAME}} ${{env.IMAGE_NAME}}
 
+      - name: Configure docker
+        run: gcloud auth configure-docker us-central1-docker.pkg.dev
       - name: Push Docker image
         run: docker push $IMAGE_NAME
 
