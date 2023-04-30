@@ -11,6 +11,9 @@ permissions:
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      IMAGE_NAME: us-central1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/native-image-docker-repo/${{ secrets.GCP_APP_NAME }}
+      IMAGE_PREV_NAME: cartinhas:0.0.1-SNAPSHOT
     steps:
       - uses: actions/checkout@v3
       - uses: graalvm/setup-graalvm@v1
@@ -23,13 +26,6 @@ jobs:
         uses: gradle/gradle-build-action@67421db6bd0bf253fb4bd25b31ebb98943c375e1
         with:
           arguments: bootBuildImage
-  deploy:
-    name: Setup Gcloud Account
-    runs-on: ubuntu-latest
-    env:
-      IMAGE_NAME: us-central1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/native-image-docker-repo/${{ secrets.GCP_APP_NAME }}
-      IMAGE_PREV_NAME: cartinhas:0.0.1-SNAPSHOT
-    steps:
       - name: Login
         uses: google-github-actions/setup-gcloud@v0
         with:
@@ -37,9 +33,8 @@ jobs:
           service_account_email: ${{ secrets.GCP_EMAIL }}
           service_account_key: ${{ secrets.GCP_CREDENTIALS }}
 
-
       - name: Name Docker image
-        run: docker tag ${{env.IMAGE_PREV_NAME}} ${{env.IMAGE_PREV_NAME}}
+        run: docker tag ${{env.IMAGE_PREV_NAME}} ${{env.IMAGE_NAME}}
 
       - name: Push Docker image
         run: docker push $IMAGE_NAME
