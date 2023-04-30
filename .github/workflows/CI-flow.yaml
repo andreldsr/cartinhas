@@ -12,7 +12,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     env:
-      IMAGE_NAME: us-central1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/native-image-docker-repo/${{ secrets.GCP_APP_NAME }}
+      IMAGE_NAME: us-central1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/native-image-docker-repo/${{ secrets.GCP_APP_NAME }}:tag1
       IMAGE_PREV_NAME: cartinhas:0.0.1-SNAPSHOT
     steps:
       - uses: actions/checkout@v3
