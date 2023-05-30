@@ -26,7 +26,16 @@ class SecurityConfiguration(
             .cors { c -> c.disable() }
             .authorizeHttpRequests { auth ->
                 auth
-                    .requestMatchers("/api/auth/**", "/actuator/**", "/swagger-ui/**", "/v3/api-docs/**").permitAll()
+                    .requestMatchers(
+                        "/api/auth/**",
+                        "/actuator/**",
+                        "/swagger-ui**",
+                        "/swagger-ui/**",
+                        "/v3/api-docs/**",
+                        "/index.*",
+                        "/redoc.*",
+                        "/favicon*"
+                    ).permitAll()
                     .requestMatchers("/api/admin/**").hasRole("ADMIN")
                     .requestMatchers("/api/**").hasAnyRole("USER", "ADMIN")
                     .anyRequest().authenticated()
