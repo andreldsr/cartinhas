@@ -4,6 +4,7 @@ import com.github.andreldsr.cartinhas.season.application.playerseason.PlayerSeas
 import com.github.andreldsr.cartinhas.season.application.playerseason.request.CreatePlayerSeasonRequest
 import com.github.andreldsr.cartinhas.season.domain.playerseason.PlayerSeason
 import io.swagger.v3.oas.annotations.Operation
+import io.swagger.v3.oas.annotations.security.SecurityRequirement
 import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.DeleteMapping
 import org.springframework.web.bind.annotation.PathVariable
@@ -19,16 +20,16 @@ import java.util.UUID
 @RequestMapping("/api/admin/player-seasons")
 class PlayerSeasonAdminController(private val service: PlayerSeasonService) {
     @PostMapping
-    @Operation(summary = "Save player season", tags = ["Player Seasons"])
+    @Operation(summary = "Save player season", tags = ["Player Seasons"], security = [SecurityRequirement(name = "bearer-key")])
     @ResponseStatus(HttpStatus.CREATED)
     fun save(@RequestBody request: CreatePlayerSeasonRequest) = service.save(request)
 
     @PutMapping("/{id}")
-    @Operation(summary = "Update player season", tags = ["Player Seasons"])
+    @Operation(summary = "Update player season", tags = ["Player Seasons"], security = [SecurityRequirement(name = "bearer-key")])
     fun update(@PathVariable id: UUID, @RequestBody playerSeason: PlayerSeason) = service.update(id, playerSeason)
 
     @DeleteMapping("/{id}")
-    @Operation(summary = "Delete player season", tags = ["Player Seasons"])
+    @Operation(summary = "Delete player season", tags = ["Player Seasons"], security = [SecurityRequirement(name = "bearer-key")])
     @ResponseStatus(HttpStatus.NO_CONTENT)
     fun delete(@PathVariable id: UUID) = service.delete(id)
 }

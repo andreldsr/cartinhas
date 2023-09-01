@@ -5,6 +5,7 @@ import com.github.andreldsr.cartinhas.card.application.card.request.ChangeCardSc
 import com.github.andreldsr.cartinhas.card.application.card.request.CreateCardRequest
 import com.github.andreldsr.cartinhas.card.domain.card.Card
 import io.swagger.v3.oas.annotations.Operation
+import io.swagger.v3.oas.annotations.security.SecurityRequirement
 import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.DeleteMapping
 import org.springframework.web.bind.annotation.PathVariable
@@ -21,28 +22,28 @@ import java.util.UUID
 class CardAdminController(private val cardService: CardService) {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    @Operation(summary = "Save card", tags = ["Cards"])
+    @Operation(summary = "Save card", tags = ["Cards"], security = [SecurityRequirement(name = "bearer-key")])
     fun save(@RequestBody request: CreateCardRequest) = cardService.save(request)
 
     @PutMapping("/{id}")
-    @Operation(summary = "Update card", tags = ["Cards"])
+    @Operation(summary = "Update card", tags = ["Cards"], security = [SecurityRequirement(name = "bearer-key")])
     fun update(@PathVariable id: UUID, @RequestBody card: Card) = cardService.update(id, card)
 
     @PutMapping("/{id}/score")
-    @Operation(summary = "Update card score", tags = ["Cards"])
+    @Operation(summary = "Update card score", tags = ["Cards"], security = [SecurityRequirement(name = "bearer-key")])
     fun updateScore(@PathVariable id: UUID, @RequestBody request: ChangeCardScoreRequest) =
         cardService.updateScore(id, request)
 
     @PutMapping("/{id}/bagre")
-    @Operation(summary = "Update card bagre", tags = ["Cards"])
+    @Operation(summary = "Update card bagre", tags = ["Cards"], security = [SecurityRequirement(name = "bearer-key")])
     fun updateBagre(@PathVariable id: UUID) = cardService.updateBagre(id)
 
     @PutMapping("/{id}/craque")
-    @Operation(summary = "Update card craque", tags = ["Cards"])
+    @Operation(summary = "Update card craque", tags = ["Cards"], security = [SecurityRequirement(name = "bearer-key")])
     fun updateCraque(@PathVariable id: UUID) = cardService.updateCraque(id)
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    @Operation(summary = "Delete card", tags = ["Cards"])
+    @Operation(summary = "Delete card", tags = ["Cards"], security = [SecurityRequirement(name = "bearer-key")])
     fun delete(@PathVariable id: UUID) = cardService.delete(id)
 }

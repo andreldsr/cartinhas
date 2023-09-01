@@ -27,7 +27,7 @@ spring:
 
 springdoc:
   enable-native-support: true
-  
+  show-login-endpoint: true
 
 management:
   endpoint:

@@ -3,6 +3,7 @@ package com.github.andreldsr.cartinhas.players.presentation.nationality
 import com.github.andreldsr.cartinhas.players.application.nationality.NationalityService
 import com.github.andreldsr.cartinhas.players.application.nationality.request.CreateNationalityRequest
 import io.swagger.v3.oas.annotations.Operation
+import io.swagger.v3.oas.annotations.security.SecurityRequirement
 import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.DeleteMapping
 import org.springframework.web.bind.annotation.PathVariable
@@ -18,11 +19,11 @@ import java.util.UUID
 class NationalityAdminController(private val service: NationalityService) {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    @Operation(summary = "Save a nationality", tags = ["Nationalities"])
+    @Operation(summary = "Save a nationality", tags = ["Nationalities"], security = [SecurityRequirement(name = "bearer-key")])
     fun save(@RequestBody request: CreateNationalityRequest) = service.save(request)
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    @Operation(summary = "Delete a nationality", tags = ["Nationalities"])
+    @Operation(summary = "Delete a nationality", tags = ["Nationalities"], security = [SecurityRequirement(name = "bearer-key")])
     fun delete(@PathVariable id: UUID) = service.delete(id)
 }

@@ -3,6 +3,7 @@ package com.github.andreldsr.cartinhas.card.presentation.scorerecord
 import com.github.andreldsr.cartinhas.card.application.scorerecord.ScoreRecordService
 import com.github.andreldsr.cartinhas.card.domain.scorerecord.ScoreRecord
 import io.swagger.v3.oas.annotations.Operation
+import io.swagger.v3.oas.annotations.security.SecurityRequirement
 import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.DeleteMapping
 import org.springframework.web.bind.annotation.PathVariable
@@ -19,16 +20,16 @@ import java.util.UUID
 class ScoreRecordAdminController(private val scoreRecordService: ScoreRecordService) {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    @Operation(summary = "Create score record", tags = ["Score Records"])
+    @Operation(summary = "Create score record", tags = ["Score Records"], security = [SecurityRequirement(name = "bearer-key")])
     fun save(@RequestBody scoreRecord: ScoreRecord) = scoreRecordService.save(scoreRecord)
 
     @PutMapping("/{id}")
-    @Operation(summary = "Update score record", tags = ["Score Records"])
+    @Operation(summary = "Update score record", tags = ["Score Records"], security = [SecurityRequirement(name = "bearer-key")])
     fun update(@PathVariable id: UUID, @RequestBody scoreRecord: ScoreRecord) =
         scoreRecordService.update(id, scoreRecord)
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    @Operation(summary = "Delete score record", tags = ["Score Records"])
+    @Operation(summary = "Delete score record", tags = ["Score Records"], security = [SecurityRequirement(name = "bearer-key")])
     fun delete(@PathVariable id: UUID) = scoreRecordService.delete(id)
 }

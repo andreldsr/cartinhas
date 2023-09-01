@@ -4,6 +4,7 @@ import com.github.andreldsr.cartinhas.players.application.playerrole.PlayerRoleS
 import com.github.andreldsr.cartinhas.players.application.playerrole.request.CreatePlayerRoleRequest
 import com.github.andreldsr.cartinhas.players.domain.playerrole.PlayerRole
 import io.swagger.v3.oas.annotations.Operation
+import io.swagger.v3.oas.annotations.security.SecurityRequirement
 import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.DeleteMapping
 import org.springframework.web.bind.annotation.PathVariable
@@ -22,15 +23,15 @@ class PlayerRoleAdminController(
 ) {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    @Operation(summary = "Save player role", tags = ["Player Roles"])
+    @Operation(summary = "Save player role", tags = ["Player Roles"], security = [SecurityRequirement(name = "bearer-key")])
     fun save(@RequestBody request: CreatePlayerRoleRequest) = playerRoleService.save(request)
 
     @PutMapping("/{id}")
-    @Operation(summary = "Update player role", tags = ["Player Roles"])
+    @Operation(summary = "Update player role", tags = ["Player Roles"], security = [SecurityRequirement(name = "bearer-key")])
     fun update(@PathVariable id: UUID, @RequestBody playerRole: PlayerRole) = playerRoleService.update(id, playerRole)
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    @Operation(summary = "Delete player role", tags = ["Player Roles"])
+    @Operation(summary = "Delete player role", tags = ["Player Roles"], security = [SecurityRequirement(name = "bearer-key")])
     fun delete(@PathVariable id: UUID) = playerRoleService.delete(id)
 }

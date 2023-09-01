@@ -2,6 +2,7 @@ package com.github.andreldsr.cartinhas.season.presentation.playerseason
 
 import com.github.andreldsr.cartinhas.season.application.playerseason.PlayerSeasonService
 import io.swagger.v3.oas.annotations.Operation
+import io.swagger.v3.oas.annotations.security.SecurityRequirement
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.RequestMapping
@@ -12,10 +13,10 @@ import java.util.UUID
 @RequestMapping("/api/player-seasons")
 class PlayerSeasonController(private val service: PlayerSeasonService) {
     @GetMapping
-    @Operation(summary = "List all player seasons", tags = ["Player Seasons"])
+    @Operation(summary = "List all player seasons", tags = ["Player Seasons"], security = [SecurityRequirement(name = "bearer-key")])
     fun findAll() = service.findAll()
 
     @GetMapping("/{id}")
-    @Operation(summary = "Find player season by id", tags = ["Player Seasons"])
+    @Operation(summary = "Find player season by id", tags = ["Player Seasons"], security = [SecurityRequirement(name = "bearer-key")])
     fun findById(@PathVariable id: UUID) = service.findById(id)
 }
